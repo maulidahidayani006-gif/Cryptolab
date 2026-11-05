@@ -65,7 +65,7 @@
                 <div class="col-12">
                     <label for="kunci">Kunci</label>
                     <input type="text" class="form-control" id="kunci" autocomplete="off" placeholder="Masukkan kunci...">
-                    
+                    <div class="info-text mt-1" id="keyHelp"></div>
                 </div>
                 <div class="col-12 d-flex gap-2">
                     <button type="button" class="btn btn-enc" id="btnEnkripsi"><i class="bi bi-play-fill"></i> Enkripsi</button>
