@@ -25,6 +25,15 @@
                           display:flex; align-items:center; justify-content:center; color:#fff; }
         .topbar i { font-size:1.2rem; color:#b8c7e0; cursor:pointer; }
         .content { margin-left:230px; padding:20px 30px 30px; }
+        .menu-btn { display:none; background:none; border:0; color:#e6edf7;
+            font-size:1.7rem; margin-right:auto; padding:0; }
+        @media (max-width:768px) {
+        .sidebar { transform:translateX(-100%); transition:transform .25s; z-index:1050; }
+        .sidebar.open { transform:translateX(0); }
+        .overlay.show { position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:1040; }
+        .content { margin-left:0; padding:16px; }
+        .menu-btn { display:block; }
+}
     </style>
 </head>
 <body>
@@ -49,12 +58,23 @@
         </div>
     </div>
 
+    <div class="overlay" onclick="toggleMenu()"></div>
+
     <div class="content">
         <div class="topbar">
+            <button class="menu-btn" onclick="toggleMenu()"><i class="bi bi-list"></i></button>
             <i class="bi bi-moon"></i>
             <div class="avatar"><i class="bi bi-person-fill" style="color:#fff;font-size:1rem"></i></div>
         </div>
         @yield('content')
     </div>
+        
+    </div>
+    <script>
+    function toggleMenu() {
+        document.querySelector('.sidebar').classList.toggle('open');
+        document.querySelector('.overlay').classList.toggle('show');
+}
+    </script>
 </body>
 </html>
