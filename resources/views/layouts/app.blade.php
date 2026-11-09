@@ -46,7 +46,6 @@
 
         <div class="bottom">
             <a href="/about" class="{{ request()->is('about') ? 'active' : '' }}"><i class="bi bi-info-circle"></i> About</a>
-            <a href="#"><i class="bi bi-box-arrow-left"></i> Logout</a>
         </div>
     </div>
 
