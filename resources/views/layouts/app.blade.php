@@ -7,10 +7,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <style>
-        body { background:#07142b; color:#e6edf7; min-height:100vh; }
+        body { background:#07142b; color:#e6edf7; min-height:100vh; overflow-x:hidden; }
         .sidebar { width:230px; background:#0a1a36; border-right:1px solid #16315c;
                    position:fixed; top:0; bottom:0; left:0; padding:20px 14px;
-                   display:flex; flex-direction:column; }
+                   display:flex; flex-direction:column; overflow-y:auto; z-index:1050;
+                   transition:transform .25s; }
         .brand { text-align:center; margin-bottom:24px; }
         .brand svg { display:block; margin:0 auto 6px; }
         .brand .name { font-size:1.3rem; font-weight:700; }
@@ -24,16 +25,25 @@
         .topbar .avatar { width:34px; height:34px; border-radius:50%; background:#1f6bff;
                           display:flex; align-items:center; justify-content:center; color:#fff; }
         .topbar i { font-size:1.2rem; color:#b8c7e0; cursor:pointer; }
-        .content { margin-left:230px; padding:20px 30px 30px; }
+        .content { margin-left:230px; padding:20px 30px 30px; min-width:0; }
+        .content img, .content svg, .content table { max-width:100%; }
+        .content .form-select, .content .form-control, .content select, .content textarea, .content input {
+            background-color:#0d2147; color:#e6edf7; border:1px solid #1d3a6b; width:100%; }
+        .content select option { background:#0d2147; color:#e6edf7; }
+
         .menu-btn { display:none; background:none; border:0; color:#e6edf7;
-            font-size:1.7rem; margin-right:auto; padding:0; }
+                    font-size:1.7rem; margin-right:auto; padding:0; line-height:1; }
+        .overlay { display:none; }
+
         @media (max-width:768px) {
-        .sidebar { transform:translateX(-100%); transition:transform .25s; z-index:1050; }
-        .sidebar.open { transform:translateX(0); }
-        .overlay.show { position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:1040; }
-        .content { margin-left:0; padding:16px; }
-        .menu-btn { display:block; }
-}
+            .sidebar { transform:translateX(-100%); }
+            .sidebar.open { transform:translateX(0); }
+            .overlay.show { display:block; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:1040; }
+            .content { margin-left:0; padding:16px; }
+            .menu-btn { display:block; }
+            .content .row > * { flex:0 0 100%; max-width:100%; }
+            .content [class*="col-"] { width:100%; flex:0 0 100%; max-width:100%; }
+        }
     </style>
 </head>
 <body>
@@ -68,13 +78,12 @@
         </div>
         @yield('content')
     </div>
-        
-    </div>
+
     <script>
-    function toggleMenu() {
-        document.querySelector('.sidebar').classList.toggle('open');
-        document.querySelector('.overlay').classList.toggle('show');
-}
+        function toggleMenu() {
+            document.querySelector('.sidebar').classList.toggle('open');
+            document.querySelector('.overlay').classList.toggle('show');
+        }
     </script>
 </body>
 </html>
